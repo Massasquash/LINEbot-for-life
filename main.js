@@ -1,5 +1,7 @@
 var CHANNEL_ACCESS_TOKEN = 'wkuGDzs92ybNqJl1y2KrraonRjOw5cBb1r75OUkCbkQhJCBMrY3wJaR9GXIYPijBbYA5ueOABRQoLhTs5C8iCIyK/8aqH8sg7EvBqUZ19pkKlsWckKAGJCvoYdAoeDgG1P1WP8dzjdFzkRLxV/dGCwdB04t89/1O/w1cDnyilFU=';
 
+var ss = SpreadsheetApp.getActiveSpreadsheet();
+
 // メイン処理。LINE botがユーザーからメッセージを受け取った時
 function doPost(e) {
   getMessage(e);
@@ -25,18 +27,18 @@ function getMessage(e){
   
 
   }else{
-    var num = Math.floor(Math.random(3));
+    var num = Math.floor(Math.random()*3);
     switch(num){
-      case "0":
+      case 0:
         var message = "こんにちワン";
         break;
-      case "1":
+      case 1:
         var message = "こんばんワニ";
         break;
-      case "2":
+      case 2:
         var message = "おはCock-a-doodle-doo";
         break;
-      case "3":
+      default:
         var message = "foooooooooooooooo";
         break;
     };
@@ -105,7 +107,7 @@ function replyMessages(replyToken, message1, message2){
 //スプレッドシートにログを表示するためのもの
 function outputLog(text){
   var sheetName = "logs";
-  ssForLogs.getSheetByName(sheetName).appendRow(
+  ss.getSheetByName(sheetName).appendRow(
     [new Date(), text]
   );
 }

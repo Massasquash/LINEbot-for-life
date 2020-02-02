@@ -57,3 +57,14 @@ function sendToLine(message){
   
   UrlFetchApp.fetch(url, options);
 }
+
+
+
+
+
+
+//アップデート情報
+function updateInfo() {
+  var info = "適当にチャットするとランダムで挨拶を返してくれる無駄な機能をつけたよ";
+  sendToLine(info);
+}
