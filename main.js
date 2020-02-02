@@ -22,10 +22,24 @@ function getMessage(e){
     
 
   }else if(messageText.match("クイックリプライ")){
-    
+  
 
   }else{
-    var message = "【READ ME】\n●「おつかれ」と入れてみてください。日報を入力できます。\n●「履歴」と入れるとカレンダー・シートを送ります。";
+    var num = Math.floor(Math.random(3));
+    switch(num){
+      case "0":
+        var message = "こんにちワン";
+        break;
+      case "1":
+        var message = "こんばんワニ";
+        break;
+      case "2":
+        var message = "おはCock-a-doodle-doo";
+        break;
+      case "3":
+        var message = "foooooooooooooooo";
+        break;
+    };
     reply(replyToken, message);
   };
 }
