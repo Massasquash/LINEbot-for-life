@@ -1,7 +1,7 @@
 //チャンネル情報・ラインアカウント情報の取得
-var CHANNEL_ACCESS_TOKEN = 'wkuGDzs92ybNqJl1y2KrraonRjOw5cBb1r75OUkCbkQhJCBMrY3wJaR9GXIYPijBbYA5ueOABRQoLhTs5C8iCIyK/8aqH8sg7EvBqUZ19pkKlsWckKAGJCvoYdAoeDgG1P1WP8dzjdFzkRLxV/dGCwdB04t89/1O/w1cDnyilFU=';
-var USER_ID_M = 'U4e99427124639a7e9b3a1e739e9ebeaa';
-var USER_ID_L = 'U3e0a70b46996ce2d0413fd53d56a046f';
+var CHANNEL_ACCESS_TOKEN = PropertiesService.getScriptProperties().getProperty('CHANNEL_ACCESS_TOKEN');
+var USER_ID_M = PropertiesService.getScriptProperties().getProperty('USER_ID_M');
+var USER_ID_L = PropertiesService.getScriptProperties().getProperty('USER_ID_L');
 
 //ユーザー入力項目
 var weekday = ["日", "月", "火", "水", "木", "金", "土"];
@@ -65,6 +65,6 @@ function sendToLine(message){
 
 //アップデート情報
 function updateInfo() {
-  var info = "適当にチャットするとランダムで挨拶を返してくれる無駄な機能をつけたよ";
+  var info = "テスト配信";
   sendToLine(info);
 }

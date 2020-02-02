@@ -1,4 +1,4 @@
-var CHANNEL_ACCESS_TOKEN = 'wkuGDzs92ybNqJl1y2KrraonRjOw5cBb1r75OUkCbkQhJCBMrY3wJaR9GXIYPijBbYA5ueOABRQoLhTs5C8iCIyK/8aqH8sg7EvBqUZ19pkKlsWckKAGJCvoYdAoeDgG1P1WP8dzjdFzkRLxV/dGCwdB04t89/1O/w1cDnyilFU=';
+var CHANNEL_ACCESS_TOKEN = PropertiesService.getScriptProperties().getProperty('CHANNEL_ACCESS_TOKEN');
 
 var ss = SpreadsheetApp.getActiveSpreadsheet();
 
@@ -27,7 +27,7 @@ function getMessage(e){
   
 
   }else{
-    var num = Math.floor(Math.random()*3);
+    var num = Math.floor(Math.random()*5);
     switch(num){
       case 0:
         var message = "こんにちワン";
@@ -37,6 +37,12 @@ function getMessage(e){
         break;
       case 2:
         var message = "おはCock-a-doodle-doo";
+        break;
+      case 3:
+        var message = "にゃん";
+        break;
+      case 4:
+        var message = "ニャン";
         break;
       default:
         var message = "foooooooooooooooo";
