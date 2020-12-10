@@ -17,20 +17,26 @@ var garbageCalendar = {
 
 //リマインダのメイン処理
 function garbageReminder() {
-  var date = new Date();
+  const date = new Date();
   date.setDate(date.getDate() + 1);
-  var dayNum = date.getDay();
-  var day = weekday[dayNum];
-  var garbageType = garbageCalendar[day];
+  const day = weekday[date.getDay()];
+  const garbageType = garbageCalendar[day];
   
-  var message = "【ゴミ出し通信】\n";
+  const Suiyoubi = getDaysOfWeek(date, 3); //水曜日
+  const MoenaiGomiArr = [Suiyoubi[1], Suiyoubi[2]] // 第2・第4水曜日
   
-  if(garbageType != ""){ 
-    message += " 明日は${day}曜日、「${garbageType}」の日です。\n出すゴミをチェックしよう".replace('${day}',day).replace('${garbageType}',garbageType);
+  let message = "【ゴミ出し通信】\n";
+  
+  if(garbageType != ""){
+    message += ` 明日は${day}曜日、「${garbageType}」の日です。\n出すゴミをチェックしよう`;
     sendToLine(message);
-  }else{
-
-  };
+  }
+  for(const MoenaiGomi of MoenaiGomiArr){
+    if(date === MoenaiGomi){
+      message = '「燃えないゴミ」も出そう！';
+      sendToLine(message);
+    }
+  }
 }
 
 //ラインに送信する処理
@@ -60,11 +66,38 @@ function sendToLine(message){
 
 
 
+/**
+*その年月のd曜日を取得する
+*
+*@param {date} 調べたい年月の日付（Date型）
+*@param {day} 曜日を表す数値(0:日曜日〜6:土曜日)
+*@return {days} ある年月のある曜日の日付の入った配列
+*/
+function getDaysOfWeek(date, day) {
+  const year = date.getFullYear();
+  const month = date.getMonth();
+  const days = [];
+  
+  console.log(year, month, day);
 
+  for (let i = 1; i <= 31; i++){
+    const tmpDate = new Date(year, month, i);
+    
+    if (month !== tmpDate.getMonth()) break; //月代わりで処理終了
+    if (tmpDate.getDay() !== day) continue; //引数に指定した曜日以外の時は何もしない
 
-
-//アップデート情報
-function updateInfo() {
-  var info = "テスト配信";
-  sendToLine(info);
+    days.push(tmpDate);
+  }
+  
+  return days;
 }
+
+
+//
+//
+//
+////アップデート情報
+//function updateInfo() {
+//  var info = "テスト配信";
+//  sendToLine(info);
+//}
