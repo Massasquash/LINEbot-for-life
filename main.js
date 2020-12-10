@@ -1,6 +1,6 @@
-var CHANNEL_ACCESS_TOKEN = PropertiesService.getScriptProperties().getProperty('CHANNEL_ACCESS_TOKEN');
+const CHANNEL_ACCESS_TOKEN = PropertiesService.getScriptProperties().getProperty('CHANNEL_ACCESS_TOKEN');
 
-var ss = SpreadsheetApp.getActiveSpreadsheet();
+const ss = SpreadsheetApp.getActiveSpreadsheet();
 
 // メイン処理。LINE botがユーザーからメッセージを受け取った時
 function doPost(e) {
@@ -9,14 +9,14 @@ function doPost(e) {
 }
 
 function getMessage(e){
-  var event = JSON.parse(e.postData.contents).events[0];
-  var replyToken = event.replyToken;
+  const event = JSON.parse(e.postData.contents).events[0];
+  const replyToken = event.replyToken;
   if(typeof replyToken === 'undefined'){
     return;
   };
 
-  var messageText = event.message.text;
-  var cache = CacheService.getScriptCache();
+  const messageText = event.message.text;
+  let cache = CacheService.getScriptCache();
 
   // ユーザーから受け取ったメッセージを部分一致で処理を分岐
   if(messageText.match("日時選択アクション")){
@@ -27,26 +27,26 @@ function getMessage(e){
   
 
   }else{
-    var num = Math.floor(Math.random()*5);
+    const num = Math.floor(Math.random()*5);
+    let message = '';
     switch(num){
       case 0:
-        var message = "こんにちワン";
+        message = "こんにちワン";
         break;
       case 1:
-        var message = "こんばんワニ";
+        message = "こんばんワニ";
         break;
       case 2:
-        var message = "おはCock-a-doodle-doo";
+        message = "おはCock-a-doodle-doo";
         break;
       case 3:
-        var message = "にゃん";
+        message = "にゃん";
         break;
       case 4:
-        var message = "ニャン";
+        message = "ニャン";
         break;
       default:
-        var message = "foooooooooooooooo";
-        break;
+        const message = "foooooooooooooooo";
     };
     reply(replyToken, message);
   };
@@ -56,8 +56,8 @@ function getMessage(e){
 // ラインにメッセージを返す処理。
 function reply(replyToken, message){
 
-  var url = "https://api.line.me/v2/bot/message/reply";
-  var message = {
+  const url = "https://api.line.me/v2/bot/message/reply";
+  const data = {
     "replyToken" : replyToken,
     "messages" : [
       {
@@ -67,13 +67,13 @@ function reply(replyToken, message){
     ]
   };
 
-  var options = {
+  const options = {
     "method" : "post",
     "headers" : {
       "Content-Type" : "application/json",
       "Authorization" : "Bearer " + CHANNEL_ACCESS_TOKEN
     },
-    "payload" : JSON.stringify(message)
+    "payload" : JSON.stringify(data)
   };
 
   UrlFetchApp.fetch(url, options);
@@ -83,8 +83,8 @@ function reply(replyToken, message){
 // ラインに二つのメッセージを返す処理。
 function replyMessages(replyToken, message1, message2){
 
-  var url = "https://api.line.me/v2/bot/message/reply";
-  var message = {
+  const url = "https://api.line.me/v2/bot/message/reply";
+  const data = {
     "replyToken" : replyToken,
     "messages" : [{
         "type" : "text",
@@ -96,13 +96,13 @@ function replyMessages(replyToken, message1, message2){
     ]
   };
 
-  var options = {
+  const options = {
     "method" : "post",
     "headers" : {
       "Content-Type" : "application/json",
       "Authorization" : "Bearer " + CHANNEL_ACCESS_TOKEN
     },
-    "payload" : JSON.stringify(message)
+    "payload" : JSON.stringify(data)
   };
 
   UrlFetchApp.fetch(url, options);
@@ -112,7 +112,7 @@ function replyMessages(replyToken, message1, message2){
 
 //スプレッドシートにログを表示するためのもの
 function outputLog(text){
-  var sheetName = "logs";
+  const sheetName = "logs";
   ss.getSheetByName(sheetName).appendRow(
     [new Date(), text]
   );

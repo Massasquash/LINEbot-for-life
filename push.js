@@ -1,11 +1,11 @@
 //チャンネル情報・ラインアカウント情報の取得
-var CHANNEL_ACCESS_TOKEN = PropertiesService.getScriptProperties().getProperty('CHANNEL_ACCESS_TOKEN');
-var USER_ID_M = PropertiesService.getScriptProperties().getProperty('USER_ID_M');
-var USER_ID_L = PropertiesService.getScriptProperties().getProperty('USER_ID_L');
+const CHANNEL_ACCESS_TOKEN = PropertiesService.getScriptProperties().getProperty('CHANNEL_ACCESS_TOKEN');
+const USER_ID_M = PropertiesService.getScriptProperties().getProperty('USER_ID_M');
+const USER_ID_L = PropertiesService.getScriptProperties().getProperty('USER_ID_L');
 
 //ユーザー入力項目
-var weekday = ["日", "月", "火", "水", "木", "金", "土"];
-var garbageCalendar = {
+const weekday = ["日", "月", "火", "水", "木", "金", "土"];
+const garbageCalendar = {
   "日":"",
   "月":"燃やすゴミ",
   "火":"",
@@ -41,13 +41,13 @@ function garbageReminder() {
 
 //ラインに送信する処理
 function sendToLine(message){
-  var url = 'https://api.line.me/v2/bot/message/multicast';
-  var headers = {
+  const url = 'https://api.line.me/v2/bot/message/multicast';
+  const headers = {
     'Content-Type':'application/json; charset=UTF-8',
     'Authorization':'Bearer ' + CHANNEL_ACCESS_TOKEN
   };
       
-  var data={
+  const data={
     "to":[USER_ID_M, USER_ID_L],
     "messages":[{
       "type":"text",
@@ -55,7 +55,7 @@ function sendToLine(message){
     }]
   };
   
-  var options = {
+  const options = {
     'method':'post',
     'headers':headers,
     'payload':JSON.stringify(data)
